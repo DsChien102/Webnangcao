@@ -5,22 +5,18 @@ ob_start();//tranh loi header,cookie
 require_once 'config.php';
 require_once 'includes/connect.php';
 require_once 'includes/database.php';
-$data=[
-  'name'=>'Ngoc',
-  'slug'=>'ngoc',
-  
-];
-insert('course_category',$data);
-//$rel = getOnce("SELECT * FROM course ");
-//echo '<pre>';
-//print_r($rel);
-//echo '</pre> ';
-//die();
+require_once 'includes/session.php';
+
+
+require_once './templates/layouts/index.php';
+
 $module = _MODULES;
 $action = _ACTION;
 
-if(!empty($_GET['module'])){
-    $module = $_GET['module'];
+if (!empty($_GET['module'])) {
+    if (is_string($_GET['module'])) {
+        $module = trim($_GET['module']);
+    }
 }
 
 if(!empty($_GET['action'])){
