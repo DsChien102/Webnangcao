@@ -15,7 +15,7 @@ if (!defined('_SECURITY')) {
         class="brand-image opacity-75 shadow" />
       <!--end::Brand Image-->
       <!--begin::Brand Text-->
-      <span class="brand-text fw-light">HIENU MARKETING</span>
+      <span class="brand-text fw-light">HUNG PHENIKAA</span>
       <!--end::Brand Text-->
     </a>
     <!--end::Brand Link-->

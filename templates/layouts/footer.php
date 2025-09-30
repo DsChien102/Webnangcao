@@ -11,7 +11,7 @@ if(!defined('_SECURITY')){
     <!--begin::Copyright-->
     <strong>
       Copyright &copy; 2019-2025&nbsp;
-      <a href="https://adminlte.io" class="text-decoration-none">Hienu.vn</a>.
+      <a href="https://adminlte.io" class="text-decoration-none">Hung.vn</a>.
     </strong>
     All rights reserved.
     <!--end::Copyright-->

@@ -8,7 +8,7 @@ require_once './templates/layouts/sidebar.php';
 <!--begin::App Main-->
 <main class="app-main">
   <?php 
-//require_once './templates/layouts/breadcrumb.php';
+require_once './templates/layouts/breadcrumb.php';
 
        ?>
   <!--begin::App Content-->
