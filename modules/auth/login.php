@@ -2,8 +2,10 @@
 if(!defined('_SECURITY')){
     die('Truy cập không hợp lệ');
 }
-require_once './templates/layouts/header-auth.php';
-
+$data = [
+  'title' => 'Đăng nhập hệ thống'
+];
+layout('header-auth', $data);
 ?>
 <section class="vh-100">
   <div class="container-fluid h-custom">
@@ -48,4 +50,4 @@ require_once './templates/layouts/header-auth.php';
 </section>
 
 <?php 
-require_once './templates/layouts/footer.php';
+layout('footer');

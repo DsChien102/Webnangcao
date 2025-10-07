@@ -1,4 +1,81 @@
-<?php
+<?php 
 if(!defined('_SECURITY')){
-    die('Ban khong co quyen truy cap trang nay!');
+    die('Truy cập không hợp lệ');
 }
+$data = [
+  'title' => 'Đăng ký tài khoản'
+];
+layout('header-auth', $data);
+?>
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img src="<?php echo _HOST_URL_TEMPLATES; ?>/assets/image/draw2.webp" class="img-fluid" alt="Sample image">
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <!--< ?php getMsg($msg, $msg_type); ?>-->
+
+        <form method="POST" action="" enctype="multipart/form-data">
+          <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+            <h2 class=" fw-normal mb-5 me-3">Đăng ký tài khoản</h2>
+          </div>
+          <!--   Name, email, sdt, mật khẩu, nhập lại mk -->
+
+          <div data-mdb-input-init class="form-outline mb-4">
+            <input name="fullname" type="text" class="form-control form-control-lg" placeholder="Họ tên" />
+            <?php 
+              // echo formError($errorsArr, 'fullname');
+            ?>
+          </div>
+
+          <!-- Nhập email -->
+          <div data-mdb-input-init class="form-outline mb-4">
+            <input name="email" type="text" class="form-control form-control-lg" placeholder="Địa chỉ email" />
+            <?php 
+                //echo formError($errorsArr, 'email');
+              ?>
+          </div>
+
+          <!-- Nhập số điện thoại -->
+          <div data-mdb-input-init class="form-outline mb-4">
+            <input name="phone" type="text" class="form-control form-control-lg" placeholder="Nhập số điện thoại" />
+            <?php 
+                //echo formError($errorsArr, 'phone');
+              ?>
+          </div>
+
+          <!-- Password input -->
+          <div data-mdb-input-init class="form-outline mb-3">
+            <input name="password" type="password" id="form3Example4" class="form-control form-control-lg"
+              placeholder="Nhập mật khẩu" />
+            <?php 
+               // echo formError($errorsArr, 'password');
+              ?>
+          </div>
+
+          <!-- Nhập lại mật khẩu -->
+          <div data-mdb-input-init class="form-outline mb-4">
+            <input name="confirm_pass" type="password" class="form-control form-control-lg"
+              placeholder="Nhập lại mật khẩu" />
+            <?php 
+             //   echo formError($errorsArr, 'confirm_pass');
+              ?>
+          </div>
+
+          <div class="text-center text-lg-start mt-4 pt-2">
+            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
+              style="padding-left: 2.5rem; padding-right: 2.5rem;">Đăng ký</button>
+            <p class="small fw-bold mt-2 pt-1 mb-0">Bạn đã có tài khoản? <a
+                href="<?php echo _HOST_URL; ?>?module=auth&action=login" class="link-danger">Đăng nhập ngay</a></p>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<?php
+layout('footer');
