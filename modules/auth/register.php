@@ -6,6 +6,14 @@ $data = [
   'title' => 'Đăng ký tài khoản'
 ];
 layout('header-auth', $data);
+if(!empty($_POST)){
+ $filterArr = filterData();
+ echo '<pre>';
+ print_r($filterArr);
+ echo '</pre>';
+ die();
+}
+
 ?>
 <section class="vh-100">
   <div class="container-fluid h-custom">
