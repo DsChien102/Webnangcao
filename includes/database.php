@@ -44,7 +44,7 @@ function insert($table, $data){
 
     // thực thi câu lệnh
     $rel = $stm -> execute($data);
-    
+    return $rel;
 }
 
 // Update dữ liệu
@@ -69,7 +69,8 @@ function update($table, $data, $condition = ''){
     $tmp = $conn -> prepare($sql);
  
     // Thực thi câu lệnh
-    $tmp -> execute($data);
+    $rel = $tmp -> execute($data);
+    return $rel;
 }
 
 
@@ -86,7 +87,8 @@ function delete($table, $condition = ''){
 
     $stm = $conn -> prepare($sql);
 
-    $stm -> execute();
+    $rel = $stm -> execute();
+    return $rel;
 
 }
 

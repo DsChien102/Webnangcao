@@ -175,3 +175,18 @@ function isPhone($phone){
 
     return false;
 }
+// thông báo lỗi
+function getMsg($msg, $type = 'success'){
+    echo '<div class="annouce-message alert alert-' . $type . '"> ';
+    echo $msg ;
+    echo ' </div>';
+}
+
+// hiển thị lỗi
+function formError($errors, $fieldName){
+    return  (!empty($errors[$fieldName])) ? '<div class="error">' .reset($errors[$fieldName]) . '  </div>' : false;
+}
+//ham hien thi gia tri cu
+function oldData($oldData, $fieldName){
+    return !empty($oldData[$fieldName]) ? ($oldData[$fieldName]) : null;
+}

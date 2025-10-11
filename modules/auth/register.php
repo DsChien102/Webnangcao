@@ -65,11 +65,46 @@ if (isPost()) {
       $errors['confirm_pass']['like'] = 'Mật khẩu nhập lại không khớp';
     }
   }
-  if (empty(!$errors)){
-    echo'<pre>';
-    print_r($errors);
-    echo'</pre>';
+
+  if (empty($errors)) {
+    $active_token =sha1(uniqid() . time());
+    $data =[
+      'fullname' => $filter['fullname'],
+      'email' => $filter['email'],
+      'phone' => $filter['phone'],
+      'password' => password_hash($filter['password'], PASSWORD_DEFAULT),
+      'active_token' => $active_token,
+      'group_id' => 1,
+      'created_at' => date('Y-m-d H:i:s')
+    ];
+    $insertStatus = insert('users', $data); 
+      if($insertStatus){
+
+        $emailTo = $filter['email'];
+        $subject = 'Xác nhận đăng ký tài khoản';
+        $content ='Chuc mung ban da dang ky tai khoan thanh cong tren he thong cua chung toi. Vui long click vao link de kich hoat tai khoan <br/>';
+        $content .= _HOST_URL.'/?module=auth&action=active&token='.$active_token.'">'._HOST_URL.'?module=auth&action=active&token='.$active_token.'</a>';
+
+        sendMail($emailTo, $subject, $content);
+        setSessionFlash('msg', 'Đăng ký tài khoản thành công, vui lòng kiểm tra email để kích hoạt tài khoản');
+        setSessionFlash('msg_type', 'success');
+      }else{
+       setSessionFlash('msg', 'Đăng ký tài khoản không thành công, vui lòng thử lại sau');
+        setSessionFlash('msg_type', 'danger');
+      }
+    
+  } else {
+
+    setSessionFlash('msg', 'Vui lòng kiểm tra lại dữ liệu nhập vào');
+      setSessionFlash('msg_type', 'danger');
+    setSessionFlash('oldData', $filter);
+
+    setSessionFlash('errors', $errors);
   }
+  $msg = getSessionFlash('msg');
+  $msg_type = getSessionFlash('msg_type');
+  $oldData  = getSessionFlash('oldData');
+  $errorsArr  = getSessionFlash('errors');
 }
 
 ?>
@@ -80,6 +115,9 @@ if (isPost()) {
         <img src="<?php echo _HOST_URL_TEMPLATES; ?>/assets/image/draw2.webp" class="img-fluid" alt="Sample image">
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <?php getMsg($msg, $msg_type);
+       
+         ?>
 
 
         <form method="POST" action="" enctype="multipart/form-data">
@@ -89,35 +127,48 @@ if (isPost()) {
           <!--   Name, email, sdt, mật khẩu, nhập lại mk -->
 
           <div data-mdb-input-init class="form-outline mb-4">
-            <input name="fullname" type="text" class="form-control form-control-lg" placeholder="Họ tên" />
+            <input name="fullname" type="text" value="<?php echo oldData($oldData, 'fullname'); ?>"
+              class="form-control form-control-lg" placeholder="Họ tên" />
 
-
+            <?php 
+               echo formError($errorsArr, 'fullname');
+            ?>
           </div>
 
           <!-- Nhập email -->
           <div data-mdb-input-init class="form-outline mb-4">
-            <input name="email" type="text" class="form-control form-control-lg" placeholder="Địa chỉ email" />
-
+            <input name="email" value="<?php echo oldData($oldData, 'email'); ?>" type="text"
+              class="form-control form-control-lg" placeholder="Địa chỉ email" />
+            <?php 
+                echo formError($errorsArr, 'email');
+              ?>
           </div>
 
           <!-- Nhập số điện thoại -->
           <div data-mdb-input-init class="form-outline mb-4">
-            <input name="phone" type="text" class="form-control form-control-lg" placeholder="Nhập số điện thoại" />
-
+            <input name="phone" value="<?php echo oldData($oldData, 'phone'); ?>" type="text"
+              class="form-control form-control-lg" placeholder="Nhập số điện thoại" />
+            <?php 
+                echo formError($errorsArr, 'phone');
+              ?>
           </div>
 
           <!-- Password input -->
           <div data-mdb-input-init class="form-outline mb-3">
             <input name="password" type="password" id="form3Example4" class="form-control form-control-lg"
               placeholder="Nhập mật khẩu" />
-
+            <?php 
+                echo formError($errorsArr, 'password');
+              ?>
           </div>
 
           <!-- Nhập lại mật khẩu -->
           <div data-mdb-input-init class="form-outline mb-4">
             <input name="confirm_pass" type="password" class="form-control form-control-lg"
               placeholder="Nhập lại mật khẩu" />
-
+            <?php 
+                echo formError($errorsArr, 'confirm_pass');
+              ?>
           </div>
 
           <div class="text-center text-lg-start mt-4 pt-2">
